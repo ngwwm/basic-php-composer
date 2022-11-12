@@ -13,6 +13,8 @@ variables:
   phpVersion: 7.2
   rootFolder: $(System.DefaultWorkingDirectory)
 
+name: $(TeamProject)_$(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+
 steps:
 - script: |
     php -version
@@ -27,9 +29,9 @@ steps:
     rootFolderOrFile: '$(rootFolder)'
     includeRootFolder: false
     archiveType: zip
-    archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+    archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildNumber).zip
     replaceExistingArchive: true
 
-- upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+- upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildNumber).zip
   displayName: 'Upload package'
   artifact: drop
